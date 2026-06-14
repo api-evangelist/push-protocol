@@ -1,0 +1,180 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "push": "https://push.org/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "PushChain": "push:PushChain",
+    "UniversalTransaction": "push:UniversalTransaction",
+    "UniversalSigner": "push:UniversalSigner",
+    "UniversalAccountId": "push:UniversalAccountId",
+    "UniversalExecutorAccount": "push:UniversalExecutorAccount",
+    "ChainExecutorAccount": "push:ChainExecutorAccount",
+    "UEAFactory": "push:UEAFactory",
+    "PushNetwork": "push:PushNetwork",
+    "MoveableToken": "push:MoveableToken",
+    "PayableToken": "push:PayableToken",
+    "PRC20Token": "push:PRC20Token",
+    "ConversionQuote": "push:ConversionQuote",
+    "TxResponse": "push:TxResponse",
+    "ProgressHookType": "push:ProgressHookType",
+
+    "chainNamespace": {
+      "@id": "push:chainNamespace",
+      "@type": "xsd:string"
+    },
+    "chainId": {
+      "@id": "push:chainId",
+      "@type": "xsd:string"
+    },
+    "owner": {
+      "@id": "push:owner",
+      "@type": "xsd:string"
+    },
+    "isUEA": {
+      "@id": "push:isUEA",
+      "@type": "xsd:boolean"
+    },
+    "isDeployed": {
+      "@id": "push:isDeployed",
+      "@type": "xsd:boolean"
+    },
+    "upcAmount": {
+      "@id": "push:upcAmount",
+      "@type": "xsd:string"
+    },
+    "slippageBps": {
+      "@id": "push:slippageBps",
+      "@type": "xsd:integer"
+    },
+    "network": {
+      "@id": "push:network",
+      "@type": "xsd:string"
+    },
+    "txHash": {
+      "@id": "push:txHash",
+      "@type": "xsd:string"
+    },
+    "gasLimit": {
+      "@id": "push:gasLimit",
+      "@type": "xsd:string"
+    },
+    "maxFeePerGas": {
+      "@id": "push:maxFeePerGas",
+      "@type": "xsd:string"
+    },
+    "maxPriorityFeePerGas": {
+      "@id": "push:maxPriorityFeePerGas",
+      "@type": "xsd:string"
+    },
+    "deadline": {
+      "@id": "push:deadline",
+      "@type": "xsd:string"
+    },
+    "payGasWith": {
+      "@id": "push:payGasWith",
+      "@type": "push:PayableToken"
+    },
+    "funds": {
+      "@id": "push:funds",
+      "@type": "push:MoveableToken"
+    },
+    "from": {
+      "@id": "push:from",
+      "@type": "push:ChainRef"
+    },
+    "to": {
+      "@id": "push:to",
+      "@type": "push:ChainRef"
+    },
+    "value": {
+      "@id": "push:value",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "push:data",
+      "@type": "xsd:string"
+    },
+    "enforceGasCheck": {
+      "@id": "push:enforceGasCheck",
+      "@type": "xsd:boolean"
+    },
+    "rpcUrls": {
+      "@id": "push:rpcUrls",
+      "@type": "@json"
+    },
+    "explorerUrl": {
+      "@id": "push:explorerUrl",
+      "@type": "@id"
+    },
+    "decimals": {
+      "@id": "push:decimals",
+      "@type": "xsd:integer"
+    },
+    "symbol": {
+      "@id": "push:symbol",
+      "@type": "xsd:string"
+    },
+    "address": {
+      "@id": "push:address",
+      "@type": "xsd:string"
+    },
+    "library": {
+      "@id": "push:library",
+      "@type": "xsd:string"
+    },
+    "typedData": {
+      "@id": "push:typedData",
+      "@type": "@json"
+    },
+    "abi": {
+      "@id": "push:abi",
+      "@type": "@json"
+    },
+    "functionName": {
+      "@id": "push:functionName",
+      "@type": "xsd:string"
+    },
+    "args": {
+      "@id": "push:args",
+      "@type": "@json"
+    },
+    "precision": {
+      "@id": "push:precision",
+      "@type": "xsd:integer"
+    },
+    "exponent": {
+      "@id": "push:exponent",
+      "@type": "xsd:integer"
+    }
+  },
+  "@graph": [
+    {
+      "@id": "push:PushChain",
+      "@type": "schema:SoftwareApplication",
+      "schema:name": "Push Chain",
+      "schema:description": "Universal Layer 1 blockchain with 100% EVM compatibility, 4.2k TPS, 1-second block time, and instant finality.",
+      "schema:url": "https://push.org"
+    },
+    {
+      "@id": "push:UniversalTransaction",
+      "@type": "schema:Action",
+      "schema:name": "Universal Transaction",
+      "schema:description": "A cross-chain transaction routable from Ethereum, Solana, BNB Chain, Base, or Arbitrum to Push Chain via a single SDK call."
+    },
+    {
+      "@id": "push:UEAFactory",
+      "@type": "schema:SoftwareApplication",
+      "schema:name": "UEAFactory",
+      "schema:description": "Smart contract deployed at 0x00000000000000000000000000000000000000eA for managing Universal Executor Accounts (UEAs) on Push Chain.",
+      "push:address": "0x00000000000000000000000000000000000000eA"
+    },
+    {
+      "@id": "push:ChainExecutorAccount",
+      "@type": "schema:Thing",
+      "schema:name": "Chain Executor Account (CEA)",
+      "schema:description": "A security upgrade for cross-chain users and developers enabling chain-specific execution isolation."
+    }
+  ]
+}

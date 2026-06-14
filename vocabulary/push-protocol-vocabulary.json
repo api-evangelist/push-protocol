@@ -1,0 +1,302 @@
+{
+  "info": {
+    "title": "Push Protocol Vocabulary",
+    "version": "1.0.0",
+    "description": "Domain vocabulary for Push Protocol (Push Chain) SDK, covering universal transactions, cross-chain execution, contract helpers, and utility functions.",
+    "source": "https://push.org/docs/chain",
+    "updated": "2026-06-13"
+  },
+  "terms": [
+    {
+      "term": "PushChain",
+      "type": "class",
+      "description": "The main SDK client class. Initialized via PushChain.initialize(signer, {network}) returning a pushChainClient instance.",
+      "properties": {
+        "universal": "Namespace for sendTransaction, signMessage, signTypedData",
+        "utils": "Namespace for helpers, chains, account, signer, tokens, conversion utilities",
+        "funds": "Namespace for getConversionQuote",
+        "explorer": "Namespace for getTransactionUrl, listUrls, listAllUrls"
+      }
+    },
+    {
+      "term": "CHAIN",
+      "type": "enum",
+      "description": "Enumeration of supported blockchain networks.",
+      "values": [
+        "ETHEREUM_SEPOLIA",
+        "SOLANA_DEVNET",
+        "BNB_TESTNET",
+        "BASE_SEPOLIA",
+        "ARBITRUM_SEPOLIA",
+        "PUSH_CHAIN_DONUT"
+      ]
+    },
+    {
+      "term": "PUSH_NETWORK",
+      "type": "enum",
+      "description": "Push Chain network identifiers.",
+      "values": [
+        "DEVNET",
+        "TESTNET",
+        "MAINNET"
+      ]
+    },
+    {
+      "term": "TOKEN",
+      "type": "enum",
+      "description": "Supported token identifiers for fee abstraction.",
+      "values": [
+        "ETH",
+        "SOL",
+        "USDC",
+        "USDT",
+        "PC"
+      ]
+    },
+    {
+      "term": "LIBRARY",
+      "type": "enum",
+      "description": "Supported signer library identifiers.",
+      "values": [
+        "ETHERS_V6",
+        "VIEM",
+        "SOLANA_WEB3"
+      ]
+    },
+    {
+      "term": "UniversalAccountId",
+      "type": "struct",
+      "description": "Cross-chain identity struct used by the UEAFactory contract.",
+      "fields": [
+        { "name": "chainNamespace", "type": "string", "description": "Chain identifier namespace (e.g., 'eip155', 'solana')" },
+        { "name": "chainId", "type": "string", "description": "Source chain identifier" },
+        { "name": "owner", "type": "bytes", "description": "Owner's public key or address in bytes" }
+      ]
+    },
+    {
+      "term": "UniversalSigner",
+      "type": "interface",
+      "description": "Abstracted signer interface wrapping Ethers v6, Viem, or Solana Web3 JS signers for use with PushChain.initialize."
+    },
+    {
+      "term": "TxResponse",
+      "type": "class",
+      "description": "Return type from pushChainClient.universal.sendTransaction. Contains txHash, origin, block data, gas details, signature components, and a wait() function.",
+      "fields": [
+        { "name": "txHash", "type": "string", "description": "Transaction hash" },
+        { "name": "wait", "type": "function", "description": "Async function to await transaction confirmation" }
+      ]
+    },
+    {
+      "term": "ConversionQuote",
+      "type": "class",
+      "description": "Return type from pushChainClient.funds.getConversionQuote. Provides conversion rate between payable and moveable tokens."
+    },
+    {
+      "term": "ProgressHookType",
+      "type": "callback",
+      "description": "Lifecycle callback function passed as tx.progressHook to sendTransaction, receiving progress updates during transaction execution."
+    },
+    {
+      "term": "UEAFactory",
+      "type": "contract",
+      "description": "Predeployed smart contract at 0x00000000000000000000000000000000000000eA for Universal Executor Account management.",
+      "address": "0x00000000000000000000000000000000000000eA",
+      "interface": "push-chain-core-contracts/src/Interfaces/IUEAFactory.sol",
+      "methods": [
+        {
+          "name": "getOriginForUEA",
+          "signature": "getOriginForUEA(address) → (UniversalAccountId, bool)",
+          "description": "Returns the UniversalAccountId and isUEA flag for a given Push Chain address."
+        },
+        {
+          "name": "getUEAForOrigin",
+          "signature": "getUEAForOrigin(UniversalAccountId) → (address, bool)",
+          "description": "Returns the deterministic CREATE2 UEA address and deployment status for a given UniversalAccountId."
+        }
+      ]
+    },
+    {
+      "term": "sendTransaction",
+      "type": "method",
+      "namespace": "pushChainClient.universal",
+      "signature": "sendTransaction({tx}): Promise<TxResponse>",
+      "description": "Routes a universal or cross-chain transaction. Supports single and batched calls, fee abstraction, CEA-based origin specification, and EIP-1559 gas overrides.",
+      "parameters": [
+        { "name": "tx.to", "type": "string | {address, chain}", "required": true },
+        { "name": "tx.value", "type": "BigInt", "required": true },
+        { "name": "tx.data", "type": "string | Array", "required": true },
+        { "name": "tx.from", "type": "{chain: CHAIN}", "required": false },
+        { "name": "tx.funds", "type": "{amount, token?}", "required": false },
+        { "name": "tx.gasLimit", "type": "BigInt", "required": false },
+        { "name": "tx.maxFeePerGas", "type": "BigInt", "required": false },
+        { "name": "tx.maxPriorityFeePerGas", "type": "BigInt", "required": false },
+        { "name": "tx.options.enforceGasCheck", "type": "boolean", "required": false, "default": false },
+        { "name": "tx.payGasWith", "type": "{token?, slippageBps?}", "required": false },
+        { "name": "tx.deadline", "type": "BigInt", "required": false },
+        { "name": "tx.progressHook", "type": "function", "required": false }
+      ]
+    },
+    {
+      "term": "signMessage",
+      "type": "method",
+      "namespace": "pushChainClient.universal",
+      "signature": "signMessage(message): Promise<string>",
+      "description": "Signs an encoded message using the universal signer. Returns hex signature string."
+    },
+    {
+      "term": "signTypedData",
+      "type": "method",
+      "namespace": "pushChainClient.universal",
+      "signature": "signTypedData({typedData}): Promise<string>",
+      "description": "Signs EIP-712 structured typed data. Only supported on EVM-compatible chains. Returns hex signature string."
+    },
+    {
+      "term": "parseUnits",
+      "type": "utility",
+      "namespace": "PushChain.utils.helpers",
+      "signature": "parseUnits(value, exponent): bigint",
+      "description": "Converts a decimal string to bigint using the given decimal exponent."
+    },
+    {
+      "term": "formatUnits",
+      "type": "utility",
+      "namespace": "PushChain.utils.helpers",
+      "signature": "formatUnits(value, {decimals, precision}): string",
+      "description": "Formats a bigint or string value with given decimal places and precision."
+    },
+    {
+      "term": "encodeTxData",
+      "type": "utility",
+      "namespace": "PushChain.utils.helpers",
+      "signature": "encodeTxData({abi_or_idl, functionName, args}): string",
+      "description": "ABI/IDL-encodes a function call into calldata hex string."
+    },
+    {
+      "term": "toUniversal",
+      "type": "utility",
+      "namespace": "PushChain.utils.account",
+      "signature": "toUniversal(address, {chain}): UniversalAccount",
+      "description": "Converts a chain-specific address to a UniversalAccount object."
+    },
+    {
+      "term": "toChainAgnostic",
+      "type": "utility",
+      "namespace": "PushChain.utils.account",
+      "signature": "toChainAgnostic(address, {chain}): string",
+      "description": "Converts a chain-specific address to a chain-agnostic address string."
+    },
+    {
+      "term": "fromChainAgnostic",
+      "type": "utility",
+      "namespace": "PushChain.utils.account",
+      "signature": "fromChainAgnostic(chainAgnosticAddress): UniversalAccount",
+      "description": "Converts a chain-agnostic address string to a UniversalAccount object."
+    },
+    {
+      "term": "deriveExecutorAccount",
+      "type": "utility",
+      "namespace": "PushChain.utils.account",
+      "signature": "deriveExecutorAccount(universalAccount, {chain?, skipNetworkCheck?}): Promise<{address, deployed?}>",
+      "description": "Derives the Universal Executor Account (UEA) address for a given UniversalAccount."
+    },
+    {
+      "term": "resolveControllerAccount",
+      "type": "utility",
+      "namespace": "PushChain.utils.account",
+      "signature": "resolveControllerAccount(account, {chain?, skipNetworkCheck?}): Promise<{accounts}>",
+      "description": "Resolves controller accounts for a given address."
+    },
+    {
+      "term": "slippageToMinAmount",
+      "type": "utility",
+      "namespace": "PushChain.utils.conversion",
+      "signature": "slippageToMinAmount(amount, {slippageBps}): string",
+      "description": "Calculates the minimum acceptable amount after applying slippage in basis points."
+    },
+    {
+      "term": "getConversionQuote",
+      "type": "method",
+      "namespace": "pushChainClient.funds",
+      "signature": "getConversionQuote(amount, {from, to}): Promise<ConversionQuote>",
+      "description": "Returns a quote for converting between a payable token and a moveable token."
+    },
+    {
+      "term": "getTransactionUrl",
+      "type": "method",
+      "namespace": "pushChainClient.explorer",
+      "signature": "getTransactionUrl(txHash, {chain?}): string",
+      "description": "Returns the block explorer URL for a given transaction hash."
+    },
+    {
+      "term": "listUrls",
+      "type": "method",
+      "namespace": "pushChainClient.explorer",
+      "signature": "listUrls({chain?}): {explorers: []}",
+      "description": "Lists explorer URLs, optionally filtered by chain."
+    },
+    {
+      "term": "listAllUrls",
+      "type": "method",
+      "namespace": "pushChainClient.explorer",
+      "signature": "listAllUrls(): {explorers: []}",
+      "description": "Lists all explorer URLs across all supported chains."
+    },
+    {
+      "term": "getMoveableTokens",
+      "type": "utility",
+      "namespace": "PushChain.utils.tokens",
+      "signature": "getMoveableTokens(chainOrClient?): {tokens: []}",
+      "description": "Returns the list of supported moveable (transferable) tokens."
+    },
+    {
+      "term": "getPayableTokens",
+      "type": "utility",
+      "namespace": "PushChain.utils.tokens",
+      "signature": "getPayableTokens(chainOrClient?): {tokens: []}",
+      "description": "Returns the list of supported payable tokens usable for gas fee abstraction."
+    },
+    {
+      "term": "getPRC20Address",
+      "type": "utility",
+      "namespace": "PushChain.utils.tokens",
+      "signature": "getPRC20Address(token, {network?}): {address, chain, symbol, decimals, network}",
+      "description": "Returns the PRC20 token contract address and metadata for a given token on a specific network."
+    },
+    {
+      "term": "toUniversalFromKeypair",
+      "type": "utility",
+      "namespace": "PushChain.utils.signer",
+      "signature": "toUniversalFromKeypair(keypair, {chain, library}): Promise<UniversalSigner>",
+      "description": "Creates a UniversalSigner from a raw keypair (e.g., Solana Keypair) for use with PushChain.initialize."
+    },
+    {
+      "term": "getSupportedChains",
+      "type": "utility",
+      "namespace": "PushChain.utils.chains",
+      "signature": "getSupportedChains(pushNetwork): {chains: []}",
+      "description": "Returns the list of supported chains for a given Push network."
+    },
+    {
+      "term": "getSupportedChainsByName",
+      "type": "utility",
+      "namespace": "PushChain.utils.chains",
+      "signature": "getSupportedChainsByName(pushNetwork): {chains: []}",
+      "description": "Returns supported chains by human-readable name for a given Push network."
+    },
+    {
+      "term": "getChainNamespace",
+      "type": "utility",
+      "namespace": "PushChain.utils.chains",
+      "signature": "getChainNamespace(chainName): string",
+      "description": "Returns the chain namespace string for a given chain name."
+    },
+    {
+      "term": "getChainName",
+      "type": "utility",
+      "namespace": "PushChain.utils.chains",
+      "signature": "getChainName(chainNamespace): string",
+      "description": "Returns the human-readable chain name for a given chain namespace string."
+    }
+  ]
+}
