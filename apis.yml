@@ -1,0 +1,169 @@
+aid: push-protocol
+url: https://raw.githubusercontent.com/api-evangelist/push-protocol/refs/heads/main/apis.yml
+name: Push Protocol
+modified: 2026-06-13T00:00:00.000Z
+tags:
+  - Web3
+  - Blockchain
+  - Layer 1
+  - Universal Apps
+  - Cross-Chain
+  - EVM
+  - Solana
+  - Notifications
+  - Messaging
+  - Wallet Abstraction
+  - Fee Abstraction
+  - DeFi
+kind: contract
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+access: 3rd-Party
+description: |
+  Push Protocol (formerly EPNS) is a Web3 communication and Layer 1 blockchain protocol that enables universal
+  applications deployable once and accessible from any chain. Push Chain is the first true Universal Layer 1
+  blockchain offering 100% EVM compatibility, 4.2k TPS, 1-second native block time, and instant finality.
+  The platform provides a JavaScript/TypeScript SDK (@pushchain/core) that wraps universal signing, cross-chain
+  transaction routing, multichain execution, message signing, smart contract helpers, and utility functions.
+  Developers can send universal transactions from Ethereum, Solana, BNB Chain, Base, and Arbitrum to Push Chain
+  via a single SDK call, with fee abstraction allowing gas payment in any supported token (ETH, SOL, USDC, USDT).
+  Push Chain also offers a testnet faucet (faucet.push.org) delivering 1 PC per address per 6 hours, and a
+  UI Kit for React-based wallet and signer abstraction.
+apis:
+  - aid: push-protocol:push-chain-sdk
+    name: Push Chain Core SDK
+    tags:
+      - SDK
+      - JavaScript
+      - TypeScript
+      - Universal Transactions
+      - Cross-Chain
+      - EVM
+      - Solana
+    humanURL: https://push.org/docs/chain
+    properties:
+      - url: https://push.org/docs/chain
+        type: Documentation
+      - url: https://push.org/docs/chain/quickstart
+        type: GettingStarted
+      - url: https://push.org/docs/chain/build/create-universal-signer
+        type: Documentation
+      - url: https://push.org/docs/chain/build/initialize-push-chain-client
+        type: Documentation
+      - url: https://push.org/docs/chain/build/send-universal-transaction
+        type: Documentation
+      - url: https://push.org/docs/chain/build/sign-universal-message
+        type: Documentation
+      - url: https://push.org/docs/chain/build/utility-functions
+        type: Documentation
+      - url: https://push.org/docs/chain/build/contract-helpers
+        type: Documentation
+    description: >-
+      JavaScript/TypeScript SDK (@pushchain/core) for the Push Chain Universal Layer 1 blockchain. Exposes
+      PushChain.initialize(signer, {network}) for client setup, pushChainClient.universal.sendTransaction({tx})
+      for universal and cross-chain transaction routing, pushChainClient.universal.signMessage() and
+      signTypedData() for EIP-712 message signing, and a suite of utility helpers for unit conversion, chain
+      namespace mapping, account derivation, moveable/payable token lookup, slippage calculation, and
+      explorer URL generation. Compatible with Ethers v6, Viem, and Solana Web3 JS signers.
+  - aid: push-protocol:push-chain-evm-client
+    name: Push Chain EVM Client
+    tags:
+      - EVM
+      - Ethereum
+      - JSON-RPC
+      - Ethers
+      - Viem
+    humanURL: https://push.org/docs/chain/build/initialize-evm-client
+    properties:
+      - url: https://push.org/docs/chain/build/initialize-evm-client
+        type: Documentation
+    description: >-
+      Push Chain is 100% EVM-compatible; developers can initialize standard Ethers v6 or Viem clients
+      against Push Chain RPC endpoints without modifying existing Solidity ABIs, bytecodes, or on-chain logic.
+      Supports full-node JSON-RPC methods and the standard eth_ namespace.
+  - aid: push-protocol:push-chain-contract-helpers
+    name: Push Chain Contract Helpers (UEAFactory)
+    tags:
+      - Smart Contracts
+      - Solidity
+      - Universal Executor Account
+      - Cross-Chain Identity
+    humanURL: https://push.org/docs/chain/build/contract-helpers
+    properties:
+      - url: https://push.org/docs/chain/build/contract-helpers
+        type: Documentation
+    description: >-
+      On-chain contract helpers deployed at 0x00000000000000000000000000000000000000eA (UEAFactory).
+      getOriginForUEA(address) returns the UniversalAccountId and isUEA flag for any Push Chain address.
+      getUEAForOrigin(UniversalAccountId) computes the deterministic CREATE2 Universal Executor Account
+      address and its deployment status. Importable via push-chain-core-contracts/src/Interfaces/IUEAFactory.sol
+      or as a manually defined Solidity interface.
+  - aid: push-protocol:push-chain-faucet
+    name: Push Chain Testnet Faucet
+    tags:
+      - Faucet
+      - Testnet
+      - Developer Tools
+      - Donut Testnet
+    humanURL: https://faucet.push.org
+    properties:
+      - url: https://faucet.push.org
+        type: Faucet
+      - url: https://push.org/docs/chain/setup/faucets
+        type: Documentation
+    description: >-
+      Public testnet faucet at faucet.push.org for the Push Chain Donut Testnet. Delivers 1 PC (native gas
+      token) per wallet address per 6 hours. Rate-limited and CAPTCHA-gated. Supports multi-chain testing
+      across Ethereum Sepolia, Solana Devnet, BNB Testnet, Base Sepolia, and Arbitrum Sepolia alongside
+      Push Chain Donut via external per-chain faucet contracts callable through block explorers.
+  - aid: push-protocol:push-chain-ui-kit
+    name: Push Chain UI Kit
+    tags:
+      - React
+      - Frontend
+      - Wallet Abstraction
+      - UI Components
+    humanURL: https://push.org/docs/chain
+    properties:
+      - url: https://push.org/docs/chain
+        type: Documentation
+    description: >-
+      React UI component library providing PushUniversalWalletProvider and PushUniversalAccountButton
+      for abstracting wallet connection and universal signer creation in web applications. Supports
+      MetaMask, Phantom, social login, and email-based authentication for wallet-agnostic onboarding.
+common:
+  - type: Website
+    url: https://push.org
+  - type: Portal
+    url: https://push.org/docs
+  - type: Documentation
+    url: https://push.org/docs/chain
+  - type: GettingStarted
+    url: https://push.org/docs/chain/quickstart
+  - type: Tutorials
+    url: https://push.org/docs/chain/tutorials
+  - type: Faucet
+    url: https://faucet.push.org
+  - type: Pricing
+    url: https://push.org
+    data: plans/push-protocol-plans.yml
+  - type: RateLimits
+    url: https://push.org/docs/chain/setup/faucets
+    data: rate-limits/push-protocol-rate-limits.yml
+  - type: FinOps
+    url: https://push.org
+    data: finops/push-protocol-finops.yml
+  - type: Github
+    url: https://github.com/pushchain
+  - type: Discord
+    url: https://discord.com/invite/pushprotocol
+  - type: Twitter
+    url: https://x.com/pushprotocol
+  - type: Blog
+    url: https://push.org/blog
+  - type: TermsOfService
+    url: https://push.org/tos
+  - type: PrivacyPolicy
+    url: https://push.org/privacy
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

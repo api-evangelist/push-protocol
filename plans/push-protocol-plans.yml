@@ -1,0 +1,66 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Push Protocol
+providerId: push-protocol
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Web3
+  - Blockchain
+  - Layer 1
+  - Cross-Chain
+description: >-
+  Push Protocol (Push Chain) is an open Layer 1 blockchain protocol. No traditional SaaS subscription
+  tiers are published. Gas fees are paid in native PC tokens or via fee abstraction using ETH, SOL,
+  USDC, or USDT. The testnet faucet is free and rate-limited. Developer access to the SDK is open-source
+  and permissionless.
+sources:
+  - https://push.org
+  - https://push.org/docs/chain
+  - https://push.org/docs/chain/setup/faucets
+plans:
+  - id: push-protocol-open
+    name: Open / Permissionless
+    type: free
+    description: >-
+      Push Chain is a permissionless public blockchain. SDK usage (@pushchain/core) is free and
+      open-source under MIT license. Developers pay network gas fees in PC (native token) or any
+      supported token via fee abstraction. No API key or subscription required.
+    entries:
+      - label: SDK license fee
+        name: sdk_fee
+        type: recurring
+        metric: subscription
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: '0.00'
+        userMultiplied: false
+      - label: Gas fee per transaction (metered, paid on-chain)
+        name: gas_fee
+        type: metered
+        metric: transaction
+        limit: -1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: variable
+        userMultiplied: false
+    features:
+      - Permissionless access — no registration or API key required
+      - SDK installable via npm install @pushchain/core
+      - Universal transaction routing across EVM and Solana chains
+      - Fee abstraction — pay gas in ETH, SOL, USDC, USDT, or native PC
+      - 4.2k TPS with 1-second block time and instant finality
+      - 100% EVM-compatible — deploy existing Solidity contracts unchanged
+      - Testnet faucet (faucet.push.org) with 1 PC per 6 hours per address
+      - Open-source MIT SDK on GitHub (github.com/pushchain)
+notes:
+  - Push Chain is a public L1; pricing is determined by on-chain gas markets, not a subscription service.
+  - Fee abstraction converts user-held tokens (ETH, SOL, USDC, USDT) to PC at time of transaction.
+  - Slippage for fee abstraction is configurable via payGasWith.slippageBps parameter.
+  - The UEAFactory contract (0x...eA) and SDK are open-source; no licensing fee applies.
+  - Enterprise or integration partnerships may be available; contact push.org for details.

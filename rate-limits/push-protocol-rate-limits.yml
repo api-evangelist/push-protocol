@@ -1,0 +1,80 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Push Protocol
+providerId: push-protocol
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - Web3
+  - Blockchain
+  - Faucet
+  - Rate Limiting
+description: >-
+  Push Chain is a permissionless public blockchain; the on-chain SDK itself has no rate limits —
+  throughput is governed by the network's 4.2k TPS capacity and block inclusion rules. The only
+  explicitly documented rate limit applies to the testnet faucet at faucet.push.org.
+sources:
+  - https://push.org/docs/chain/setup/faucets
+  - https://push.org/docs/chain
+responseCodes:
+  throttled: 429
+  invalidAuth: 401
+limits:
+  - surface: Push Chain Donut Testnet Faucet (faucet.push.org)
+    tier: Public
+    rps: null
+    windowSeconds: 21600
+    requestsPerWindow: 1
+    unit: address
+    notes: 1 PC per wallet address per 6 hours; CAPTCHA-gated to prevent automation.
+  - surface: Push Chain On-Chain RPC (public)
+    tier: Public
+    tps: 4200
+    notes: >-
+      Network-level throughput is 4.2k TPS with 1-second block time. Individual RPC endpoint
+      rate limits are not publicly documented; governed by Push Chain validator nodes.
+  - surface: Universal Transaction SDK
+    tier: All
+    rps: null
+    notes: >-
+      No SDK-layer rate limits; transactions compete for inclusion based on gas price and
+      available block capacity. Fee abstraction conversions may be subject to DEX liquidity.
+faucetRateLimits:
+  - network: Push Chain Donut Testnet
+    token: PC
+    amount: 1
+    cooldownSeconds: 21600
+    gating: CAPTCHA
+    url: https://faucet.push.org
+  - network: Ethereum Sepolia
+    token: ETH, USDC, USDT, WETH
+    amount: variable
+    cooldownSeconds: variable
+    gating: CAPTCHA or contract call
+    notes: Call faucet() on the ERC-20 contract via block explorer
+  - network: Solana Devnet
+    token: SOL, USDC
+    amount: variable
+    cooldownSeconds: variable
+    gating: external faucet services
+  - network: BNB Testnet
+    token: BNB, USDC, USDT
+    amount: variable
+    cooldownSeconds: variable
+    gating: CAPTCHA or contract call
+  - network: Base Sepolia
+    token: ETH, USDC, USDT
+    amount: variable
+    cooldownSeconds: variable
+    gating: CAPTCHA or contract call
+  - network: Arbitrum Sepolia
+    token: ETH, USDC, USDT
+    amount: variable
+    cooldownSeconds: variable
+    gating: CAPTCHA or contract call
+notes:
+  - The documentation explicitly warns against writing agent loops that call faucet endpoints automatically.
+  - On-chain RPC rate limiting is governed by public validator nodes; no per-developer quotas are published.
+  - Cross-chain fee abstraction conversions (via payGasWith) depend on available DEX liquidity and slippage.

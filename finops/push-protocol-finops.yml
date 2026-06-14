@@ -1,0 +1,124 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Push Protocol
+providerId: push-protocol
+created: '2026-06-13'
+modified: '2026-06-13'
+reconciled: true
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+  - Web3
+  - Blockchain
+  - Gas Fees
+  - Fee Abstraction
+description: >-
+  FOCUS-aligned FinOps definition for Push Protocol / Push Chain. Costs are gas-market-driven rather
+  than subscription-based. Fee abstraction allows users to pay in ETH, SOL, USDC, USDT, or native PC
+  tokens; the SDK handles real-time token swaps at transaction time with configurable slippage tolerance.
+sources:
+  - https://push.org/docs/chain
+  - https://push.org/docs/chain/build/send-universal-transaction
+  - https://push.org/docs/chain/setup/faucets
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Push Protocol
+serviceCategory: Blockchain Infrastructure
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Per-Transaction (on-chain)
+  billingCurrency: PC (native token) or fee-abstracted token
+  chargeCategories:
+    - Usage
+  primaryUnit: transaction
+  secondaryUnits:
+    - gas_unit
+    - token_swap
+focusColumns:
+  ServiceName: Push Chain
+  ServiceCategory: Blockchain Infrastructure
+  ProviderName: Push Protocol
+  PublisherName: Push Protocol
+  InvoiceIssuerName: Push Chain Validators
+  PricingCategory: Usage-Based
+  PricingUnit: transaction
+  BillingCurrency: PC
+meters:
+  - name: universal_transactions
+    unit: transaction
+    aggregation: sum
+    dimensions:
+      - source_chain
+      - target_chain
+      - transaction_type
+      - fee_token
+  - name: gas_units
+    unit: gas_unit
+    aggregation: sum
+    dimensions:
+      - source_chain
+      - target_chain
+      - contract_call
+  - name: fee_abstraction_swaps
+    unit: swap
+    aggregation: sum
+    dimensions:
+      - from_token
+      - to_token
+      - slippage_bps
+  - name: faucet_requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - network
+      - token
+discounts:
+  - id: fee-abstraction-slippage
+    type: configurable
+    description: >-
+      Set payGasWith.slippageBps to control token swap tolerance. Lower slippage may result in
+      failed conversions; higher slippage increases cost predictability at the expense of exactness.
+  - id: gas-limit-override
+    type: configurable
+    description: >-
+      Override tx.gasLimit and tx.maxFeePerGas to control maximum spend per transaction.
+      SDK provides estimated values by default; manual overrides allow precise cost caps.
+allocation:
+  - dimension: source_chain
+    description: >-
+      Track costs by the originating chain (e.g., Ethereum Sepolia, Solana Devnet, Push Chain)
+      to understand cross-chain execution patterns and associated fee abstractions.
+  - dimension: fee_token
+    description: >-
+      Monitor which tokens are used for gas payment (PC, ETH, SOL, USDC, USDT) to understand
+      actual cost in fiat terms and optimize for lowest-slippage token choice.
+  - dimension: transaction_type
+    description: >-
+      Categorize by universal transfer, contract call, batched transaction, or CEA-origin
+      transaction to identify high-cost operation categories.
+tags:
+  - Use progressHook callback in sendTransaction to capture per-transaction metadata for cost tagging.
+  - Emit transaction hashes and receipts to a cost-tracking store for cross-chain spend visibility.
+recommendations:
+  - Use tx.gasLimit overrides to cap maximum transaction cost and prevent unexpected gas spikes.
+  - Choose fee tokens with the deepest liquidity (ETH, USDC) to minimize fee abstraction slippage.
+  - Batch multiple contract calls into a single tx.data array to amortize base gas costs.
+  - Use read-only client initialization (UniversalAccount instead of UniversalSigner) for
+    state queries to avoid unnecessary gas consumption.
+  - Monitor testnet spending separately; faucet tokens have no fiat cost but track usage volume
+    against rate limits (1 PC per 6 hours per address).
+  - Set tx.options.enforceGasCheck to true in production to catch insufficient balance before
+    broadcast rather than discovering failures post-submission.
+notes:
+  - Push Chain is a public L1; there is no centralized billing dashboard — costs are tracked via
+    on-chain transaction receipts (gasUsed, effectiveGasPrice fields in UniversalTxReceipt).
+  - Fee abstraction conversions are routed through on-chain DEX liquidity; actual cost varies
+    with market conditions and chosen slippageBps.
+  - The SDK's wait() method on TxResponse returns the full UniversalTxReceipt with gasUsed and
+    status fields for post-transaction cost reconciliation.
