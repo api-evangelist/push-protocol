@@ -16,7 +16,7 @@ tags:
   - Fee Abstraction
   - DeFi
 kind: contract
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 description: |
   Push Protocol (formerly EPNS) is a Web3 communication and Layer 1 blockchain protocol that enables universal
