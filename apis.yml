@@ -1,6 +1,18 @@
 aid: push-protocol
 url: https://raw.githubusercontent.com/api-evangelist/push-protocol/refs/heads/main/apis.yml
 name: Push Protocol
+accessModel:
+  pricing: free
+  onboarding: unknown
+  trial: false
+  try_now: false
+  public: false
+  label: Free
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
 modified: 2026-06-13T00:00:00.000Z
 tags:
   - Web3
@@ -16,7 +28,7 @@ tags:
   - Fee Abstraction
   - DeFi
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/push-protocol.png
 access: 3rd-Party
 description: |
   Push Protocol (formerly EPNS) is a Web3 communication and Layer 1 blockchain protocol that enables universal
