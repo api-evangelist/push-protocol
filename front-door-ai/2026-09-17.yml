@@ -1,0 +1,26 @@
+# Front Door AI Index — push-protocol — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: push-protocol
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: push.org
+  final_host: push.org
+  ownership: own
+  owner: push-protocol
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 1
+  host_score: 1
+  density: 0.93
+  words: 1074
+  tiers:
+    agentic: 0
+    core: 1
+    model: 0
+  ambiguous: 3
+  top_terms:
+    smart: 3
+    AI: 1
