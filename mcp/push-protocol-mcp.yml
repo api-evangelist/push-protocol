@@ -16,12 +16,20 @@ deployment:
 tools_count: 4
 tools:
 - name: search_docs
-  description: ''
+  description: Full text search over push.org documentation. Returns ranked results with title, url, section,
+    snippet, and score. Optionally filter by section.
 - name: get_page
-  description: ''
+  description: Fetches one push.org docs page as clean markdown with frontmatter metadata (title, url,
+    section, lastUpdated). Accepts exactly one of "url" or "path". Only pages inside the indexed docs
+    set can be fetched.
 - name: list_sections
-  description: ''
+  description: 'Returns the hierarchical map of the push.org docs tree: sections, page titles, and urls.
+    Pass "section" to get a single subtree.'
 - name: get_agent_resource
-  description: ''
+  description: 'Returns the raw JSON of one push.org agent-layer file, snapshotted at build time. Resources:
+    capabilities, errors, contract-addresses, supported-chains, sdk-capabilities, changelog. These mirror
+    https://push.org/agents/.'
 tools_source: live tools/list via initialize handshake, 2026-09-12 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
