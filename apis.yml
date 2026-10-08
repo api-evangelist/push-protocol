@@ -168,6 +168,8 @@ apis:
       for abstracting wallet connection and universal signer creation in web applications. Supports
       MetaMask, Phantom, social login, and email-based authentication for wallet-agnostic onboarding.
 common:
+  - type: Plans
+    url: plans/push-protocol-plans.yml
   - type: DomainSecurity
     url: security/push-protocol-domain-security.yml
   - type: Website
