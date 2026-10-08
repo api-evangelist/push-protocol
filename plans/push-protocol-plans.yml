@@ -69,3 +69,21 @@ notes:
   - Slippage for fee abstraction is configurable via payGasWith.slippageBps parameter.
   - The UEAFactory contract (0x...eA) and SDK are open-source; no licensing fee applies.
   - Enterprise or integration partnerships may be available; contact push.org for details.
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  units:
+  - period
+  - transaction
+  plans:
+  - name: Open / Permissionless
+    access: free
+    model: hybrid
+    model_how: derived
+    units:
+    - period
+    - transaction
+    periods:
+    - month
