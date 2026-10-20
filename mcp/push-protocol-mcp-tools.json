@@ -1,0 +1,120 @@
+{
+  "endpoint": "https://mcp.push.org/api",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "push-docs",
+    "title": "Push Chain Documentation",
+    "version": "1.0.0",
+    "description": "Read-only MCP server for push.org documentation and the Push Chain agent layer. Content is a static snapshot generated at site build time.",
+    "websiteUrl": "https://push.org"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "search_docs",
+        "title": "Search push.org docs",
+        "description": "Full text search over push.org documentation. Returns ranked results with title, url, section, snippet, and score. Optionally filter by section.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 500,
+              "description": "Full text search query"
+            },
+            "section": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "description": "Restrict results to one docs section, e.g. \"build\" or \"setup\""
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20,
+              "default": 5,
+              "description": "Maximum number of results, default 5, max 20"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      {
+        "name": "get_page",
+        "title": "Get a docs page as markdown",
+        "description": "Fetches one push.org docs page as clean markdown with frontmatter metadata (title, url, section, lastUpdated). Accepts exactly one of \"url\" or \"path\". Only pages inside the indexed docs set can be fetched.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "Absolute page URL, e.g. https://push.org/docs/chain/build/constants/"
+            },
+            "path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "Site-absolute path, e.g. /docs/chain/build/constants/"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      {
+        "name": "list_sections",
+        "title": "List docs sections",
+        "description": "Returns the hierarchical map of the push.org docs tree: sections, page titles, and urls. Pass \"section\" to get a single subtree.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "section": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 100,
+              "description": "Return only the subtree for this section"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      },
+      {
+        "name": "get_agent_resource",
+        "title": "Get a Push Chain agent-layer file",
+        "description": "Returns the raw JSON of one push.org agent-layer file, snapshotted at build time. Resources: capabilities, errors, contract-addresses, supported-chains, sdk-capabilities, changelog. These mirror https://push.org/agents/.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "resource": {
+              "type": "string",
+              "enum": [
+                "capabilities",
+                "errors",
+                "contract-addresses",
+                "supported-chains",
+                "sdk-capabilities",
+                "changelog"
+              ],
+              "description": "Which agent-layer file to return"
+            }
+          },
+          "required": [
+            "resource"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        }
+      }
+    ]
+  }
+}
