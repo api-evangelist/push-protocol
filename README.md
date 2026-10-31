@@ -64,13 +64,127 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Push Protocol is a Web3 communication and Layer 1 blockchain protocol that enables universal applications deployable once and accessible from any chain. Push Chain is the first true Universal Layer 1 blockchain offering 100% EVM compatibility, 4.2k TPS, 1-second native block time, and instant finality.
+Push Protocol (formerly EPNS) is a Web3 communication and Layer 1 blockchain protocol that enables universal
+applications deployable once and accessible from any chain. Push Chain is the first true Universal Layer 1
+blockchain offering 100% EVM compatibility, 4.2k TPS, 1-second native block time, and instant finality.
+The platform provides a JavaScript/TypeScript SDK (@pushchain/core) that wraps universal signing, cross-chain
+transaction routing, multichain execution, message signing, smart contract helpers, and utility functions.
+Developers can send universal transactions from Ethereum, Solana, BNB Chain, Base, and Arbitrum to Push Chain
+via a single SDK call, with fee abstraction allowing gas payment in any supported token (ETH, SOL, USDC, USDT).
+Push Chain also offers a testnet faucet (faucet.push.org) delivering 1 PC per address per 6 hours, and a
+UI Kit for React-based wallet and signer abstraction.
 
-The platform provides a JavaScript/TypeScript SDK (`@pushchain/core`) that wraps universal signing, cross-chain transaction routing, multichain execution, message signing, smart contract helpers, and utility functions. Developers can send universal transactions from Ethereum, Solana, BNB Chain, Base, and Arbitrum to Push Chain via a single SDK call, with fee abstraction allowing gas payment in any supported token (ETH, SOL, USDC, USDT).
+**Areas:** Web3 · Blockchain · Layer 1 · Universal Apps · Cross-Chain · EVM · Solana · Notification · Messaging · Wallet Abstraction · Fee Abstraction · DeFi
 
-**Learn more:** [https://push.org](https://push.org)  
-**Documentation:** [https://push.org/docs/chain](https://push.org/docs/chain)
+## Push Protocol on APIs.io
 
----
+Everything profiled for Push Protocol is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/push-protocol/](https://apis.io/providers/push-protocol/)** — or go straight to one of the APIs or properties below.
 
-*This repository is an APIs.json 0.19 profile maintained by [API Evangelist](https://apievangelist.com).*
+### APIs (5)
+
+- [Push Chain Core SDK](https://apis.io/apis/push-protocol/push-chain-sdk/) — JavaScript/TypeScript SDK (@pushchain/core) for the Push Chain Universal Layer 1 blockchain. Exposes PushChain.initialize(signer, {network}) for client…
+- [Push Chain EVM Client](https://apis.io/apis/push-protocol/push-chain-evm-client/) — Push Chain is 100% EVM-compatible; developers can initialize standard Ethers v6 or Viem clients against Push Chain RPC endpoints without modifying existing…
+- [Push Chain Contract Helpers (UEAFactory)](https://apis.io/apis/push-protocol/push-chain-contract-helpers/) — On-chain contract helpers deployed at 0x00000000000000000000000000000000000000eA (UEAFactory). getOriginForUEA(address) returns the UniversalAccountId and…
+- [Push Chain Testnet Faucet](https://apis.io/apis/push-protocol/push-chain-faucet/) — Public testnet faucet at faucet.push.org for the Push Chain Donut Testnet. Delivers 1 PC (native gas token) per wallet address per 6 hours. Rate-limited and…
+- [Push Chain UI Kit](https://apis.io/apis/push-protocol/push-chain-ui-kit/) — React UI component library providing PushUniversalWalletProvider and PushUniversalAccountButton for abstracting wallet connection and universal signer…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [push-protocol](https://apis.io/servers/push-protocol/push-protocol/)
+
+#### Security (1)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Push Protocol Domain Security](https://apis.io/security/push-protocol/push-protocol-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Push Protocol Plans](https://apis.io/plans/push-protocol/push-protocol-plans/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Push Protocol Rate Limits](https://apis.io/rate-limits/push-protocol/push-protocol-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Push Protocol Finops](https://apis.io/finops/push-protocol/push-protocol-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://push.org)
+- [Documentation](https://push.org/docs/chain)
+- [Getting started](https://push.org/docs/chain/quickstart)
+- [Pricing](https://push.org)
+- [Blog](https://push.org/blog)
+- [Terms of service](https://push.org/tos)
+- [Privacy policy](https://push.org/privacy)
+
+## API Evangelist rating
+
+**Kin Score 23.0** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 65.0 |
+| Contract quality | 0.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 44.7 |
+
+**Agent readiness 11.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | — |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 12.5** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/push-protocol/](https://apis.io/providers/push-protocol/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Push Protocol: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/push-protocol/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
